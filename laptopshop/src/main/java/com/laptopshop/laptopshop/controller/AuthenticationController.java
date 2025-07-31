@@ -1,8 +1,6 @@
 package com.laptopshop.laptopshop.controller;
 
-import com.laptopshop.laptopshop.dto.request.AuthenticationRequest;
-import com.laptopshop.laptopshop.dto.request.IntrospectRequest;
-import com.laptopshop.laptopshop.dto.request.RegisterRequest;
+import com.laptopshop.laptopshop.dto.request.*;
 import com.laptopshop.laptopshop.dto.response.AuthenticationResponse;
 import com.laptopshop.laptopshop.dto.response.IntrospectResponse;
 import com.laptopshop.laptopshop.service.AuthenticationService;
@@ -60,6 +58,32 @@ public class AuthenticationController {
     public ResponseEntity<IntrospectResponse> authenticate(@RequestBody IntrospectRequest request)
             throws ParseException, JOSEException {
         var result = authenticationService.introspect(request);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Object> logout(@RequestBody LogoutRequest request) throws ParseException, JOSEException {
+        authenticationService.logout(request);
+
+        Map<String,Object> result = new LinkedHashMap<>();
+
+        result.put("status",HttpStatus.ACCEPTED.value());
+        result.put("message","Logout");
+        result.put("data", "");
+
+        return new ResponseEntity<>(result,HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<Object> authenticate(@RequestBody RefreshRequest request)
+            throws ParseException, JOSEException {
+
+        Map<String,Object> result = new LinkedHashMap<>();
+
+        result.put("status",HttpStatus.ACCEPTED.value());
+        result.put("message","Refresh token");
+        result.put("data", authenticationService.refreshToken(request));
+
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

@@ -1,6 +1,5 @@
-package com.laptopshop.laptopshop.entity;
+package com.laptopshop.laptopshop.dto.request;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,11 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@Embeddable
-public class ProductDescription {
-
+@NoArgsConstructor
+public class ProductDescriptionRequest {
     private String hardDrive;
     private String CPUtype;
     private String ramCapacity;

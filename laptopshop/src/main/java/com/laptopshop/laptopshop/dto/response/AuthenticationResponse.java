@@ -8,7 +8,8 @@ import java.io.Serializable;
 @Data
 @Builder
 public class AuthenticationResponse implements Serializable {
-    private String token;
+    private String accessToken;
+    private String refreshToken;
     private Long userId;
     private boolean authenticated;
 }

@@ -30,8 +30,7 @@ public class ProductEntity {
     private LocalDateTime created_at;
     private LocalDateTime update_at;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "description_id", referencedColumnName = "id")
+    @Embedded
     private ProductDescription description;
 
     @ManyToOne

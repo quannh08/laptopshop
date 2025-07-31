@@ -1,13 +1,13 @@
 package com.laptopshop.laptopshop.dto.request;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import java.io.Serializable;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReviewRequest implements Serializable {
     private Integer rating;
     private String comment;

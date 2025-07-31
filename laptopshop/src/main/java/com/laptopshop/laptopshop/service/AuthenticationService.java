@@ -1,8 +1,6 @@
 package com.laptopshop.laptopshop.service;
 
-import com.laptopshop.laptopshop.dto.request.AuthenticationRequest;
-import com.laptopshop.laptopshop.dto.request.IntrospectRequest;
-import com.laptopshop.laptopshop.dto.request.RegisterRequest;
+import com.laptopshop.laptopshop.dto.request.*;
 import com.laptopshop.laptopshop.dto.response.AuthenticationResponse;
 import com.laptopshop.laptopshop.dto.response.IntrospectResponse;
 import com.nimbusds.jose.JOSEException;
@@ -14,4 +12,8 @@ public interface AuthenticationService {
     public AuthenticationResponse authenticate(AuthenticationRequest request);
 
     public String registerUser(RegisterRequest registerRequest);
+
+    public void logout(LogoutRequest request) throws ParseException, JOSEException;
+
+    public AuthenticationResponse refreshToken(RefreshRequest request)throws ParseException, JOSEException;
 }

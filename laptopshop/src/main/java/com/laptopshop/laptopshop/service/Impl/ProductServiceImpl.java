@@ -6,6 +6,7 @@ import com.laptopshop.laptopshop.dto.response.ProductPageResponse;
 import com.laptopshop.laptopshop.dto.response.ProductResponse;
 import com.laptopshop.laptopshop.entity.BrandEntity;
 import com.laptopshop.laptopshop.entity.CategoryEntity;
+import com.laptopshop.laptopshop.entity.ProductDescription;
 import com.laptopshop.laptopshop.entity.ProductEntity;
 import com.laptopshop.laptopshop.exception.InvalidDataException;
 import com.laptopshop.laptopshop.exception.ResourceNotFoundException;
@@ -41,6 +42,7 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+
 
     private final BrandRepository brandRepository;
 
@@ -156,12 +158,23 @@ public class ProductServiceImpl implements ProductService {
         if (existingProduct != null) {
             throw new InvalidDataException("Name of product already exists");
         }
+
+        //Desciption
+        ProductDescription prdDes = ProductDescription.builder()
+                .CPUtype(req.getDescription().getCPUtype())
+                .hardDrive(req.getDescription().getHardDrive())
+                .ramCapacity(req.getDescription().getRamCapacity())
+                .screenSize(req.getDescription().getScreenSize())
+                .operatingSystem(req.getDescription().getOperatingSystem())
+                .build();
+
+
         ProductEntity product = ProductEntity.builder()
                 .name(req.getName())
                 .price(req.getPrice())
                 .importPrice(req.getImportPrice())
                 .stock(req.getStock())
-                .description(req.getDescription())
+                .description(prdDes)
                 .categories(categoryEntities)
                 .brand(brand) //
                 .build();
