@@ -1,5 +1,6 @@
 package com.laptopshop.laptopshop.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.laptopshop.laptopshop.entity.ProductDescription;
 import lombok.Builder;
 import lombok.Data;
@@ -18,8 +19,11 @@ public class ProductResponse implements Serializable {
     private BigDecimal importPrice;
     private String image;
     private int stock;
-    private LocalDateTime create_at;
-    private LocalDateTime update_at;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private LocalDateTime createdAt;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private LocalDateTime updatedAt;
 
     private ProductDescription description;
 

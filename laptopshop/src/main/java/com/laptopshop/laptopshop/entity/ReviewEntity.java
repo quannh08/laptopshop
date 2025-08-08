@@ -12,10 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "review")
-public class ReviewEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ReviewEntity extends AbstractEntity<Long>{
+
     private Integer rating;
     private String comment;
 

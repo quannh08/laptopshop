@@ -13,10 +13,8 @@ import java.math.BigDecimal;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class OrderDetail extends AbstractEntity<Long>{
+
     private int quantity;
 //    private BigDecimal price;
 

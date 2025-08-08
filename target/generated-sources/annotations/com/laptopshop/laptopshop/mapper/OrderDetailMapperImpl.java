@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-20T14:08:10+0700",
+    date = "2025-08-08T12:59:22+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -26,6 +26,8 @@ public class OrderDetailMapperImpl implements OrderDetailMapper {
         orderDetailResponse.id( orderDetail.getId() );
         orderDetailResponse.quantity( orderDetail.getQuantity() );
         orderDetailResponse.product( productEntityToProductResponse( orderDetail.getProduct() ) );
+        orderDetailResponse.createdAt( orderDetail.getCreatedAt() );
+        orderDetailResponse.updatedAt( orderDetail.getUpdatedAt() );
 
         return orderDetailResponse.build();
     }
@@ -43,7 +45,8 @@ public class OrderDetailMapperImpl implements OrderDetailMapper {
         productResponse.importPrice( productEntity.getImportPrice() );
         productResponse.image( productEntity.getImage() );
         productResponse.stock( productEntity.getStock() );
-        productResponse.update_at( productEntity.getUpdate_at() );
+        productResponse.createdAt( productEntity.getCreatedAt() );
+        productResponse.updatedAt( productEntity.getUpdatedAt() );
         productResponse.description( productEntity.getDescription() );
 
         return productResponse.build();

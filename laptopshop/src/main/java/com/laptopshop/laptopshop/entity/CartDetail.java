@@ -13,10 +13,8 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class CartDetail extends AbstractEntity<Long>{
+
     private int quantity;
 
     @ManyToOne

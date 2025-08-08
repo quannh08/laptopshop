@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,23 +18,18 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class OrderEntity extends AbstractEntity<Long> {
 
     private BigDecimal totalPrice;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @Embedded
     private AddressEntity address;
 
     @ManyToOne

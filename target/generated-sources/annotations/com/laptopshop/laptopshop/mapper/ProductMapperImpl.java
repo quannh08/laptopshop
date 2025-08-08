@@ -1,6 +1,5 @@
 package com.laptopshop.laptopshop.mapper;
 
-import com.laptopshop.laptopshop.dto.request.ProductCreationRequest;
 import com.laptopshop.laptopshop.dto.response.CategoryResponse;
 import com.laptopshop.laptopshop.dto.response.ProductResponse;
 import com.laptopshop.laptopshop.entity.CategoryEntity;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-20T14:08:11+0700",
+    date = "2025-08-08T12:59:22+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -40,28 +39,11 @@ public class ProductMapperImpl implements ProductMapper {
         productResponse.importPrice( product.getImportPrice() );
         productResponse.image( product.getImage() );
         productResponse.stock( product.getStock() );
-        productResponse.update_at( product.getUpdate_at() );
+        productResponse.createdAt( product.getCreatedAt() );
+        productResponse.updatedAt( product.getUpdatedAt() );
         productResponse.description( product.getDescription() );
 
         return productResponse.build();
-    }
-
-    @Override
-    public ProductEntity toProduct(ProductCreationRequest prd) {
-        if ( prd == null ) {
-            return null;
-        }
-
-        ProductEntity.ProductEntityBuilder productEntity = ProductEntity.builder();
-
-        productEntity.name( prd.getName() );
-        productEntity.price( prd.getPrice() );
-        productEntity.importPrice( prd.getImportPrice() );
-        productEntity.image( prd.getImage() );
-        productEntity.stock( prd.getStock() );
-        productEntity.description( prd.getDescription() );
-
-        return productEntity.build();
     }
 
     protected Set<CategoryResponse> categoryEntitySetToCategoryResponseSet(Set<CategoryEntity> set) {

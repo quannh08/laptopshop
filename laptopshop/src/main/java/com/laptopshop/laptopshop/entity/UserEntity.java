@@ -17,16 +17,12 @@ import java.util.Locale;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UserEntity extends AbstractEntity<Long>{
+
     private String username;
     private String password;
     private String email;
     private String phoneNumber;
-    private LocalDateTime createdAt;
-    private LocalDateTime updateAt;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status",length = 255)

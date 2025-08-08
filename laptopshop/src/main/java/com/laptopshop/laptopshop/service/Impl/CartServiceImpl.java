@@ -85,7 +85,6 @@ public class CartServiceImpl implements CartService {
                 .orElseThrow(()-> new ResourceNotFoundException("User not existed"));
 
         CartEntity cart = CartEntity.builder()
-                .update_at(LocalDateTime.now())
                 .quantity(0)
                 .user(user)
                 .cartDetails(new ArrayList<>())

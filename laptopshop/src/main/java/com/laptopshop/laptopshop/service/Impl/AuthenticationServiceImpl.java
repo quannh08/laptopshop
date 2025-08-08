@@ -22,7 +22,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,7 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -180,7 +183,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .issuer("laptopshop.com")
                 .issueTime(new Date())
                 .expirationTime(new Date(
-                        Instant.now().plus(7, ChronoUnit.MINUTES).toEpochMilli()))
+                        Instant.now().plus(7, ChronoUnit.HOURS).toEpochMilli()))
                 .jwtID(UUID.randomUUID().toString())
                 .claim("scope", user.getRole())
                 .build();
@@ -239,5 +242,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new UnauthenticateException("Unauthetication");
 
         return signedJWT;
+    }
+
+    public static Optional<String> getCurrentUserLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            return Optional.of(authentication.getName());
+        }
+        return Optional.empty();
     }
 }

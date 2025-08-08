@@ -15,10 +15,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "category")
-public class CategoryEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class CategoryEntity extends AbstractEntity<Long>{
+
     private String name;
     private String description;
 

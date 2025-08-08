@@ -18,17 +18,14 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "products")
-public class ProductEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ProductEntity extends AbstractEntity<Long>{
+
     private String name;
     private BigDecimal price;
     private BigDecimal importPrice;
     private String image;
     private int stock;
-    private LocalDateTime created_at;
-    private LocalDateTime update_at;
+
 
     @Embedded
     private ProductDescription description;

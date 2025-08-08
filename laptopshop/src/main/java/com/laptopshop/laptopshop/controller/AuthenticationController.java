@@ -5,6 +5,7 @@ import com.laptopshop.laptopshop.dto.response.AuthenticationResponse;
 import com.laptopshop.laptopshop.dto.response.IntrospectResponse;
 import com.laptopshop.laptopshop.service.AuthenticationService;
 import com.nimbusds.jose.JOSEException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<Object> register(@Valid @RequestBody RegisterRequest request) {
         var res = authenticationService.registerUser(request);
 
         Map<String,Object> result = new LinkedHashMap<>();

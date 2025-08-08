@@ -12,5 +12,5 @@ public interface ProductMapper {
     @Mapping(target = "categoryResponses", source = "categories")
     ProductResponse toProductResponse(ProductEntity product);
 
-    ProductEntity toProduct(ProductCreationRequest prd);
+//    ProductEntity toProduct(ProductCreationRequest prd);
 }

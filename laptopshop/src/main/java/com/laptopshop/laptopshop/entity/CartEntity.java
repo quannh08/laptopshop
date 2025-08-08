@@ -12,11 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "carts")
-public class CartEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private LocalDateTime update_at;
+public class CartEntity extends AbstractEntity<Long>{
+
     private int quantity;
 
     @OneToOne(mappedBy = "cart")

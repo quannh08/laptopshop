@@ -16,13 +16,13 @@ public  interface UserMapper {
     UserResponse toUserResponse(UserEntity user);
 
     @Mapping(target = "role", expression = "java(com.laptopshop.laptopshop.common.Role.valueOf(request.getRole()))")
-    @Mapping(target = "createdAt",ignore = true)
-    @Mapping(target = "updateAt",ignore = true)
+//    @Mapping(target = "createdAt",ignore = true)
+//    @Mapping(target = "updateAt",ignore = true)
     UserEntity toUser(UserCreationRequest request);
 
     @Mapping(target = "role", expression = "java(com.laptopshop.laptopshop.common.Role.valueOf(request.getRole()))")
 
-    @Mapping(target = "createdAt",ignore = true)
-    @Mapping(target = "updateAt",ignore = true)
+//    @Mapping(target = "createdAt",ignore = true)
+//    @Mapping(target = "updateAt",ignore = true)
     void updateUser(@MappingTarget UserEntity user, UserUpdateRequest request);
 }

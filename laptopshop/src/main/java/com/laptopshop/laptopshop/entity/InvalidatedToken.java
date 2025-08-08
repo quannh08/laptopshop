@@ -13,7 +13,7 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Builder
-public class InvalidatedToken {
+public class InvalidatedToken{
     @Id
     String id;
     Date expiryTime;

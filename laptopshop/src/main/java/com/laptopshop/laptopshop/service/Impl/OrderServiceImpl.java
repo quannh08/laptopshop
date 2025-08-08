@@ -109,7 +109,7 @@ public class OrderServiceImpl implements OrderService {
         OrderEntity order = OrderEntity.builder()
                 .status(OrderStatus.valueOf(request.getStatus()))
                 .totalPrice(total)
-                .createdAt(LocalDateTime.now())
+
                 .paymentMethod(PaymentMethod.valueOf(request.getPaymentMethod()))
                 .address(addressMapper.toAddress(request.getAddressRequest()))
                 .user(user)
@@ -141,7 +141,6 @@ public class OrderServiceImpl implements OrderService {
         order = OrderEntity.builder()
                 .status(OrderStatus.valueOf(request.getStatus()))
                 .totalPrice(total)
-                .createdAt(LocalDateTime.now())
                 .paymentMethod(PaymentMethod.valueOf(request.getPaymentMethod()))
                 .address(addressMapper.toAddress(request.getAddressRequest()))
                 .user(userRepository.findById(request.getUserId())

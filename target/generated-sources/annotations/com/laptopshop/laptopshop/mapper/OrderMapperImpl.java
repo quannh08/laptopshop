@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-20T14:08:11+0700",
+    date = "2025-08-08T12:59:19+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -33,6 +33,7 @@ public class OrderMapperImpl implements OrderMapper {
         orderResponse.id( order.getId() );
         orderResponse.totalPrice( order.getTotalPrice() );
         orderResponse.createdAt( order.getCreatedAt() );
+        orderResponse.updatedAt( order.getUpdatedAt() );
         orderResponse.address( order.getAddress() );
         orderResponse.orderDetails( orderDetailListToOrderDetailResponseList( order.getOrderDetails() ) );
 
@@ -60,6 +61,8 @@ public class OrderMapperImpl implements OrderMapper {
         if ( userEntity.getRole() != null ) {
             userResponse.role( userEntity.getRole().name() );
         }
+        userResponse.createdAt( userEntity.getCreatedAt() );
+        userResponse.updatedAt( userEntity.getUpdatedAt() );
 
         return userResponse.build();
     }
@@ -77,7 +80,8 @@ public class OrderMapperImpl implements OrderMapper {
         productResponse.importPrice( productEntity.getImportPrice() );
         productResponse.image( productEntity.getImage() );
         productResponse.stock( productEntity.getStock() );
-        productResponse.update_at( productEntity.getUpdate_at() );
+        productResponse.createdAt( productEntity.getCreatedAt() );
+        productResponse.updatedAt( productEntity.getUpdatedAt() );
         productResponse.description( productEntity.getDescription() );
 
         return productResponse.build();
@@ -93,6 +97,8 @@ public class OrderMapperImpl implements OrderMapper {
         orderDetailResponse.id( orderDetail.getId() );
         orderDetailResponse.quantity( orderDetail.getQuantity() );
         orderDetailResponse.product( productEntityToProductResponse( orderDetail.getProduct() ) );
+        orderDetailResponse.createdAt( orderDetail.getCreatedAt() );
+        orderDetailResponse.updatedAt( orderDetail.getUpdatedAt() );
 
         return orderDetailResponse.build();
     }
