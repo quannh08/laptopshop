@@ -10,6 +10,7 @@ import com.laptopshop.laptopshop.entity.UserEntity;
 import com.laptopshop.laptopshop.exception.InvalidDataException;
 import com.laptopshop.laptopshop.exception.ResourceNotFoundException;
 import com.laptopshop.laptopshop.mapper.UserMapper;
+import com.laptopshop.laptopshop.repository.RoleRepository;
 import com.laptopshop.laptopshop.repository.UserRepository;
 import com.laptopshop.laptopshop.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -36,6 +38,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private final UserMapper userMapper;
+
+    private final RoleRepository roleRepository;
 
 
     @Override
@@ -115,12 +119,10 @@ public class UserServiceImpl implements UserService {
         if(!userByUsername.isPresent()){
             throw new InvalidDataException("Email already exists");
         }
-        String roleStr = request.getRole();
-        log.info("Role form request: {}",roleStr);
-        Role userRole = (roleStr==null)?Role.USER : Role.valueOf(roleStr.toUpperCase());
+        var roles = roleRepository.findAllByNameIn(request.getRoles());
 
         UserEntity user = userMapper.toUser(request);
-        user.setRole(userRole);
+        user.setRoles(new HashSet<>(roles));
         userRepository.save(user);
 
         log.info("Save user {}",user);
@@ -132,14 +134,15 @@ public class UserServiceImpl implements UserService {
         log.info("Update User: {}", request);
         UserEntity user = getUserEntity(request.getId());
 
-        String roleStr = request.getRole(); // <-- change here
+        var roleStr = request.getRoles(); // <-- change here
         log.info("Role from request: {}", roleStr);
-        Role userRole = (roleStr == null) ? Role.USER : Role.valueOf(roleStr.toUpperCase());
+        if(roleStr != null)
+            user.setRoles(new HashSet<>(roleRepository.findAllByNameIn(request.getRoles())));
 
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
         user.setPhoneNumber(request.getPhoneNumber());
-        user.setRole(userRole);
+
 
         log.info("Updated user: {}", user);
         userRepository.save(user);

@@ -12,6 +12,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -25,5 +28,5 @@ public class UserUpdateRequest implements Serializable {
     @Email(message = "Email Invalid")
     private String email;
     private String phoneNumber;
-    private String role;
+    private Set<String> roles;
 }

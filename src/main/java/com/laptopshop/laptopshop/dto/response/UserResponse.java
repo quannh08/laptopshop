@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -22,7 +24,7 @@ public class UserResponse implements Serializable {
     private String email;
     private String phoneNumber;
     private String status;
-    private String role;
+    private Set<RoleResponse> roles;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
     private LocalDateTime createdAt;
 
