@@ -1,6 +1,5 @@
 package com.laptopshop.laptopshop.entity;
 
-import com.laptopshop.laptopshop.common.Role;
 import com.laptopshop.laptopshop.common.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,6 +10,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -28,9 +28,12 @@ public class UserEntity extends AbstractEntity<Long>{
     @Column(name = "status",length = 255)
     private UserStatus status;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role")
-    private Role role;
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "role")
+//    private Role role;
+
+    @ManyToMany
+    private Set<Role> roles;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")

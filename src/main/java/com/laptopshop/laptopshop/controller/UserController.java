@@ -95,7 +95,7 @@ public class UserController {
 
         Map<String, Object> res = new LinkedHashMap<>();
         res.put("status", HttpStatus.RESET_CONTENT.value());
-        res.put("message", "User delete successfully");
+        res.put("message", "User deleted successfully");
         res.put("data", "");
         return res;
     }
