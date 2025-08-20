@@ -20,7 +20,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -41,8 +43,11 @@ public class UserServiceImpl implements UserService {
 
     private final RoleRepository roleRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public UserPageResponse findAll(String keyword, String sort, int page, int size) {
         log.info("find all start");
         //sorting
@@ -82,8 +87,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse findById(Long id) {
-        Optional<UserEntity> user = userRepository.findById(id);
-        return userMapper.toUserResponse(user.get());
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return userMapper.toUserResponse(user);
     }
 
     @Override
@@ -116,12 +122,14 @@ public class UserServiceImpl implements UserService {
         log.info("Saving user: {}",request);
 
         Optional<UserEntity> userByUsername = userRepository.findByUsername(request.getUsername());
-        if(!userByUsername.isPresent()){
-            throw new InvalidDataException("Email already exists");
+        if(userByUsername.isPresent()){
+            throw new InvalidDataException("Username already exists");
         }
         var roles = roleRepository.findAllByNameIn(request.getRoles());
 
         UserEntity user = userMapper.toUser(request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
         user.setRoles(new HashSet<>(roles));
         userRepository.save(user);
 
