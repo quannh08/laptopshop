@@ -11,9 +11,9 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity,Long> {
     @Query(value = "select u from UserEntity u where u.status = 'ACTIVE' "+
-            "and (lower(u.username) like :keyword "+
-            "or lower(u.phoneNumber) like :keyword "+
-            "or lower(u.email) like :keyword)")
+            "and (lower(u.username) like % :keyword % "+
+            "or lower(u.phoneNumber) like % :keyword % "+
+            "or lower(u.email) like % :keyword %)")
     Page<UserEntity>searchByKeyword(String keyword, Pageable pageable);
 
     Optional<UserEntity> findByUsername(String username);
